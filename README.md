@@ -7,7 +7,7 @@ Otherwise, get to it and look up the ClilocIDs yourself.
 
 # Installation
 Download or clone LazyDay into your StealthClient scripts folder.
-cd <path to>\Stealth_v*.*.*\Scripts\
+cd <path to>\Stealth_v#.#.#\Scripts\
 git clone https://github.com/Daymorn/LazyDay.git
 
 # Run

@@ -31,7 +31,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
-	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+	#   Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         

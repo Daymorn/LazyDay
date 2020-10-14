@@ -1,0 +1,81 @@
+{
+"templates": {
+	"Death Knight": {
+		"buffs": [ "curse weapon" ]
+	},
+	"Paladin": {
+		"buffs": [ "consecrate weapon", "divine fury" ]
+	},
+	"Skald": {
+		"buffs": [ "protection", "invigorate", "inspire" ]
+	},
+	"Mage": {
+		"buffs": [ "bless" ]
+	}
+},
+"spells": {
+	"bless": {
+		"mana": 9,
+		"Attribute_ID": 1048,
+		"ClilocID1": 1075847,
+		"ClilocID2": 1075848,
+		"reqs": []
+	},
+	"enemy of one": {
+		"mana": 20,
+		"Attribute_ID": 1011,
+		"ClilocID1": 1075653,
+		"ClilocID2": 1075902,
+		"reqs": [ "war" ]
+	},
+	"protection": {
+		"mana": 6,
+		"Attribute_ID": 1029,
+		"ClilocID1": 1075814,
+		"ClilocID2": 1075815,
+		"reqs": []
+	},
+	"inspire": {
+		"mana": 16,
+		"Attribute_ID": 1055,
+		"ClilocID1": 1115612,
+		"ClilocID2": 1151951,
+		"reqs": []
+	},
+	"invigorate": {
+		"mana": 22,
+		"Attribute_ID": 1056,
+		"ClilocID1": 1115613,
+		"ClilocID2": 1115730,
+		"reqs": []
+	},
+	"strength": {
+		"mana": 6,
+		"Attribute_ID": 1048,
+		"ClilocID1": 1075845,
+		"ClilocID2": 1075846,
+		"reqs": []
+	},
+	"consecrate weapon": {
+		"mana": 10,
+		"Attribute_ID": 1082,
+		"ClilocID1": 1151385,
+		"ClilocID2": 1151386,
+		"reqs": [ "war", "rhand" ]
+	},
+	"divine fury": {
+		"mana": 15,
+		"Attribute_ID": 1010,
+		"ClilocID1": 1060497,
+		"ClilocID2": 1060497,
+		"reqs": [ "war", "rhand" ]
+	},
+	"curse weapon": {
+		"mana": 7,
+		"Attribute_ID": 1088,
+		"ClilocID1": 1060512,
+		"ClilocID2": 1153780,
+		"reqs": [ "war", "rhand" ]
+	}
+}
+}

@@ -7,7 +7,7 @@ http://www.scriptuo.com/index.php?action=profile;u=3879
 I am trying to focus on game play assistance for actions that I think are more tedious than fun. 
 This is a work in progress and can be extended out to cover quite a bit more.
 This is particularly true for the list of spells defined and the number of character templates to choose from.
-I will likely extend this more over time, otherwise get to it and look up the ClilocIDs yourself.
+I will likely extend this more over time, otherwise please feel free to look up the ClilocIDs yourself and share.
 
 # Installation
 Download or clone LazyDay into your StealthClient scripts folder.
@@ -29,15 +29,15 @@ git clone https://github.com/Daymorn/LazyDay.git
         char.bandageSelf()
         
         # Uncomment if you want to bandage another player
-        # Must replace <player objectid> with the proper id via stealth
+        # Must replace <player objectid> with the proper id via stealth.
 	# You can find this under the 'World' tab in stealth
         # Optional
 	# other = character(<player objectid>) # 0x********
         # char.bandageOther(other)
         
         # Check if need to cast desired buffs
-        # Defined in json\dicts.json -> templates.<name> 
-	#   Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+        # Defined in json\dicts.json -> templates.'name' 
+	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         

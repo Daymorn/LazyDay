@@ -29,7 +29,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         char.bandageSelf()
         
         # Uncomment if you want to bandage another player
-        # Must replace 'player objectid' with the proper id via stealth
+        # Must replace 'player objectid' with the proper id via stealth.
 	# You can find this under the 'World' tab in stealth
         # Optional
 	# other = character('player objectid') # 0x********
@@ -37,7 +37,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.'name' 
-	#   Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         

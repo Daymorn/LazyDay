@@ -28,7 +28,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         # Optional
         char.bandageSelf()
         
-        # Uncomment if you want to bandage another player
+        # Uncomment if you want to bandage another player (Must be in party to see health)
         # Must replace <player objectid> with the proper id via stealth.
         # You can find this under the 'World' tab in stealth
         # Optional

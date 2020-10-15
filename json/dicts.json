@@ -11,6 +11,12 @@
 	},
 	"Mage": {
 		"buffs": [ "bless" ]
+	},
+	"ProvoBard Tamer": {
+		"buffs": [ "protection", "invigorate" ]
+	},
+	"PeaceBard Tamer": {
+		"buffs": [ "protection", "resilience", "perseverance" ]
 	}
 },
 "spells": {
@@ -47,6 +53,34 @@
 		"Attribute_ID": 1056,
 		"ClilocID1": 1115613,
 		"ClilocID2": 1115730,
+		"reqs": []
+	},
+	"perseverance": {
+		"mana": 18,
+		"Attribute_ID": 1058,
+		"ClilocID1": 1115615,
+		"ClilocID2": 1115732,
+		"reqs": []
+	},
+	"resilience": {
+		"mana": 16,
+		"Attribute_ID": 1057,
+		"ClilocID1": 1115614,
+		"ClilocID2": 1115731,
+		"reqs": []
+	},
+	"despair": {
+		"mana": 26,
+		"Attribute_ID": 1068,
+		"ClilocID1": 1151389,
+		"ClilocID2": 1151390,
+		"reqs": []
+	},
+	"tribulation": {
+		"mana": 24,
+		"Attribute_ID": 1075,
+		"ClilocID1": 1151387,
+		"ClilocID2": 1151388,
 		"reqs": []
 	},
 	"strength": {

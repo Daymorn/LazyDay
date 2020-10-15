@@ -109,7 +109,7 @@ class character():
                 UseObject(_bandages[0])
                 WaitTargetSelf()  
 
-    def BandageOther(self, _other):
+    def bandageOther(self, _other):
         #_other is expected as class 'character'    
         if self.isHealing():
             return

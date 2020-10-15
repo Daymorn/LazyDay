@@ -1,18 +1,18 @@
 # LazyDay - UO Assistant
 Stealth-Client scripts to assist with repetitive spell casting and bandage healing while playing Ultima Online.
 
-# NOTE: This is a work in progress, and I hope to add more content eventually.
-# This is particularly true for the list of spells defined and the number of character templates to choose from.
-# Otherwise, get to it and look up the ClilocIDs yourself.
+NOTE: This is a work in progress, and I hope to add more content eventually.
+This is particularly true for the list of spells defined and the number of character templates to choose from.
+Otherwise, get to it and look up the ClilocIDs yourself.
 
 # Installation
-# Download or clone LazyDay into your StealthClient scripts folder.
-# cd <path to>\Stealth_v*.*.*\Scripts\
+Download or clone LazyDay into your StealthClient scripts folder.
+cd <path to>\Stealth_v#.#.#\Scripts\
 git clone https://github.com/Daymorn/LazyDay.git
 
 # Run
-# 1. edit lazyday.py to what suits your needs
-# 2. load LazyDay\lazyday.py into the Stealth Client and push play.
+1. edit lazyday.py to what suits your needs
+2. load LazyDay\lazyday.py into the Stealth Client and push play.
 
 # Modification
 # lazyday.py
@@ -33,7 +33,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
-	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+	#   Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         

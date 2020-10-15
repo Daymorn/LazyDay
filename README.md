@@ -29,10 +29,10 @@ git clone https://github.com/Daymorn/LazyDay.git
         char.bandageSelf()
         
         # Uncomment if you want to bandage another player
-        # Must replace 'player objectid' with the proper id via stealth.
+        # Must replace <player objectid> with the proper id via stealth.
 	# You can find this under the 'World' tab in stealth
         # Optional
-	# other = character('player objectid') # 0x********
+	# other = character(<player objectid>) # 0x********
         # char.bandageOther(other)
         
         # Check if need to cast desired buffs

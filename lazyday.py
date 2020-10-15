@@ -8,34 +8,32 @@ if __name__ == '__main__':
     char = character(Self())  
 
     while True:
-        # Iniitalize char. 
+        # Initialize character 
         # Required.
         char.setStats()
-        #print(char.status)
         
         # Check if you need to bandage yourself. 
         # Optional
         char.bandageSelf()
         
         # Uncomment if you want to bandage another player
-        # Must replace <player id> with the proper id via stealth
+        # Must replace <player objectid> with the proper id via stealth
+	# You can find this under the 'World' tab in stealth
         # Optional
-        # char.bandageOther(<player id>)
+	# other = character(<player objectid>) # 0x********
+        # char.bandageOther(other)
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
+	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         
-        # Unique to the 'Treasures of the undead Lords' event
+        # Unique to the 'Treasures of the Undead Lords' event
         # Will check for 'the three' loot and auto insure them
         # Optional 
         InsureTheThree()
         
         # Millisecond interval between each cycle
         # 1000ms works well for me
-        Wait(1000)   
-        
-
-
-
+        Wait(1000) 

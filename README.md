@@ -25,9 +25,11 @@ git clone https://github.com/Daymorn/LazyDay.git
         char.bandageSelf()
         
         # Uncomment if you want to bandage another player
-        # Must replace <player id> with the proper id via stealth
+        # Must replace <player objectid> with the proper id via stealth
+	# You can find this under the 'World' tab in stealth
         # Optional
-        # char.bandageOther(<player id>)
+	# other = character(<player objectid>) # 0x********
+        # char.bandageOther(other)
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
@@ -35,7 +37,7 @@ git clone https://github.com/Daymorn/LazyDay.git
         # Optional
         char.checkBuffs('Death Knight')
         
-        # Unique to the 'Treasures of the undead Lords' event
+        # Unique to the 'Treasures of the Undead Lords' event
         # Will check for 'the three' loot and auto insure them
         # Optional 
         InsureTheThree()

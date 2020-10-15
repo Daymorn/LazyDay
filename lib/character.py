@@ -83,9 +83,10 @@ class character():
 
                 _cost = self.dicts['spells'][_i]['mana']
                 _lmc = self.status['Lower_Mana_Cost']
-                _adjCost = _cost - (_cost * (_lmc/100))
-                if math.ceil(_adjCost) > self.status['mana']:
-                    continue
+                if _lmc > 0:
+                    _adjCost = _cost - (_cost * (_lmc/100))
+                    if math.ceil(_adjCost) > self.status['mana']:
+                        continue
 
                 CastToObject(_i, Self())
                 WaitForClientTargetResponse(5000);

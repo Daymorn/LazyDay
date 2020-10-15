@@ -7,7 +7,7 @@ http://www.scriptuo.com/index.php?action=profile;u=3879
 I am trying to focus on game play assistance for actions that I think are more tedious than fun. 
 This is a work in progress and can be extended out to cover quite a bit more.
 This is particularly true for the list of spells defined and the number of character templates to choose from.
-I will likely extend this more over time, otherwise get to it and look up the ClilocIDs yourself.
+I will likely extend this more over time, otherwise please feel free to look up the ClilocIDs yourself and share.
 
 # Installation
 Download or clone LazyDay into your StealthClient scripts folder.

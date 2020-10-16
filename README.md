@@ -11,9 +11,10 @@ I will likely extend this more over time, otherwise please feel free to look up 
 
 # Installation
 Download or clone LazyDay into your StealthClient scripts folder.
-cd <path to>\Stealth_v#.#.#\Scripts\
-git clone https://github.com/Daymorn/LazyDay.git
-
+```
+        cd <path to>\Stealth_v#.#.#\Scripts\
+        git clone https://github.com/Daymorn/LazyDay.git
+```
 # Run
 1. edit lazyday.py to what suits your needs
 2. load LazyDay\lazyday.py into the Stealth Client and push play.
@@ -28,16 +29,17 @@ git clone https://github.com/Daymorn/LazyDay.git
         # Optional
         char.bandageSelf()
         
-        # Uncomment if you want to bandage another player
+        # Uncomment if you want to bandage another player (Must be in party to see health)
         # Must replace <player objectid> with the proper id via stealth.
-	# You can find this under the 'World' tab in stealth
+        # You can find this under the 'World' tab in stealth
         # Optional
-	# other = character(<player objectid>) # 0x********
+        # other = character(<player objectid>) # 0x********
+        # other.setStats()
         # char.bandageOther(other)
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.'name' 
-	# Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+        # Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
         # Optional
         char.checkBuffs('Death Knight')
         

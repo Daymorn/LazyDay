@@ -11,9 +11,11 @@ class character():
         super().__init__()
         self.char = _charid
         self.status = {}
+        self.party = []
         self.tstamp = {}
         self.buffsActive = {}
-        self.dicts = self.__getJSON('dicts.json')
+        self.dicts = {}
+        self.setStats()
 
     def __getJSON(self, _fname):
         _lazyday = Path(__file__).parent.parent.absolute()
@@ -63,6 +65,14 @@ class character():
             self.setBuffs()
             _ext = GetExtInfo()
             self.status = {**self.status, **_ext} 
+            self.dicts = self.__getJSON('dicts.json')
+            self.status['pets'] = PetsCurrent()
+            self.status['inparty'] = InParty()
+            if self.status['inparty']:
+                for _m in PartyMembersList():
+                    if _m != Self():
+                        self.party.append(character(_m))
+                
 
     def checkBuffs(self, _template):
         if self.char != Self():

@@ -7,11 +7,7 @@ from datetime import datetime
 if __name__ == '__main__':
     char = character(Self())
     
-    while True:
-        # Initialize character 
-        # Required.
-        char.setStats()
-        
+    while True:       
         # Check if you need to bandage yourself. 
         # Optional
         char.bandageSelf()
@@ -21,7 +17,6 @@ if __name__ == '__main__':
         # You can find this under the 'World' tab in stealth
         # Optional
         # other = character(<player objectid>) # 0x********
-        # other.setStats()
         # char.bandageOther(other)
         
         # Check if need to cast desired buffs

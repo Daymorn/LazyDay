@@ -3,6 +3,7 @@ from lib.unisharp import *
 from datetime import datetime
 import json
 import math
+from pathlib import Path
 
 class character():
 
@@ -12,12 +13,12 @@ class character():
         self.status = {}
         self.tstamp = {}
         self.buffsActive = {}
-        self.dicts = self.jsonLoad(r'''..\Scripts\LazyDay\json\dicts.json''')
-    
-    def jsonLoad(self, _file):
-        with open(_file, 'r') as f:
-            _data = f.read()
-            return json.loads(_data)
+        self.dicts = self.__getJSON('dicts.json')
+
+    def __getJSON(self, _fname):
+        _lazyday = Path(__file__).parent.parent.absolute()
+        _jsonfile = _lazyday / 'json' / _fname
+        return json.loads(_jsonfile.read_bytes())
 
     def setBuffs(self):
         self.buffsActive = GetBuffBarInfo()

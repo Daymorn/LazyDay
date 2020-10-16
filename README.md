@@ -21,25 +21,26 @@ Download or clone LazyDay into your StealthClient scripts folder.
 
 # Modification
 # lazyday.py
-        # Initialize character 
-        # Required.
-        char.setStats()
-        
+```
+if __name__ == '__main__':
+    char = character(Self())
+    
+    while True:       
         # Check if you need to bandage yourself. 
         # Optional
         char.bandageSelf()
         
-        # Uncomment if you want to bandage another player (Must be in party to see health)
-        # Must replace <player objectid> with the proper id via stealth.
+        # Uncomment if you want to bandage another player
+        # Must replace <player objectid> with the proper id via stealth
         # You can find this under the 'World' tab in stealth
         # Optional
         # other = character(<player objectid>) # 0x********
-        # other.setStats()
         # char.bandageOther(other)
         
         # Check if need to cast desired buffs
-        # Defined in json\dicts.json -> templates.'name' 
+        # Defined in json\dicts.json -> templates.<name>
         # Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
+        #   'ProvoBard Tamer', 'PeaceBard Tamer'
         # Optional
         char.checkBuffs('Death Knight')
         
@@ -50,4 +51,5 @@ Download or clone LazyDay into your StealthClient scripts folder.
         
         # Millisecond interval between each cycle
         # 1000ms works well for me
-        Wait(1000)   
+        Wait(1000)
+```

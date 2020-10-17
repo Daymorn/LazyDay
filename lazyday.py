@@ -7,22 +7,20 @@ from datetime import datetime
 if __name__ == '__main__':
     char = character(Self())
     
-    while True:
-        # Initialize character 
-        # Required.
-        char.setStats()
-        
+    while True:        
         # Check if you need to bandage yourself. 
         # Optional
         char.bandageSelf()
+        # Check if you need to bandage a party member. 
+        # Optional
+        #char.bandageParty()
         
-        # Uncomment if you want to bandage another player
+        # Uncomment if you want to bandage a specific party member or pet
         # Must replace <player objectid> with the proper id via stealth
         # You can find this under the 'World' tab in stealth
         # Optional
-        # other = character(<player objectid>) # 0x********
-        # other.setStats()
-        # char.bandageOther(other)
+        #other = character(0x0260C59D) # 0x********
+        #char.bandageOther(other)
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>

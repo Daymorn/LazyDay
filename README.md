@@ -29,13 +29,17 @@ if __name__ == '__main__':
         # Check if you need to bandage yourself. 
         # Optional
         char.bandageSelf()
+        # Uncomment if you want to auto bandage party members
+        # It attempts to heal the most damaged player first, if within 1 tile.
+        # Optional
+        #char.bandageParty()
         
-        # Uncomment if you want to bandage another player
+        # Uncomment if you want to bandage a specific party member or pet
         # Must replace <player objectid> with the proper id via stealth
         # You can find this under the 'World' tab in stealth
         # Optional
-        # other = character(<player objectid>) # 0x********
-        # char.bandageOther(other)
+        #other = character(<player objectid>) # 0x********
+        #char.bandageOther(other)
         
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
@@ -51,5 +55,5 @@ if __name__ == '__main__':
         
         # Millisecond interval between each cycle
         # 1000ms works well for me
-        Wait(1000)
+        Wait(1000) 
 ```

@@ -70,14 +70,12 @@ class character():
             self.status['pets'] = PetsCurrent()
             self.status['inparty'] = InParty()
             if self.status['inparty']:
+                # always start with no members
+                # only add member if it exists locally
+                self.party = {}
                 for _m in PartyMembersList():
-                    if _m != Self():
+                    if _m != Self() and IsObjectExists(_m):
                         self.party[_m] = character(_m)
-                # I might need to just recreate the party list every time so their class object reinit
-                #for _m in PartyMembersList():
-                #    if _m != Self() and _m not in self.party:
-                #        self.party[_m] = character(_m)
-                
 
     def checkBuffs(self, _template):
         self.setStats()
@@ -97,6 +95,10 @@ class character():
 
                 if 'war' in self.dicts['spells'][_i]['reqs'] and\
                   not self.status['war']:
+                    continue
+
+                if 'peace' in self.dicts['spells'][_i]['reqs'] and\
+                  self.status['war']:
                     continue
 
                 _cost = self.dicts['spells'][_i]['mana']
@@ -130,6 +132,9 @@ class character():
                 WaitTargetSelf()  
 
     def bandageOther(self, _other):
+        if not IsObjectExists(_other.char):
+            return
+
         self.setStats()
         _other.setStats()
 
@@ -159,6 +164,9 @@ class character():
 
     def bandageParty(self):
         self.setStats()
+
+        if len(self.party) == 0:
+            return
 
         if self.isHealing():
             return

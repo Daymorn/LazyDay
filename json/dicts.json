@@ -46,14 +46,14 @@
 		"Attribute_ID": 1055,
 		"ClilocID1": 1115612,
 		"ClilocID2": 1151951,
-		"reqs": []
+		"reqs": [ "peace" ]
 	},
 	"invigorate": {
 		"mana": 22,
 		"Attribute_ID": 1056,
 		"ClilocID1": 1115613,
 		"ClilocID2": 1115730,
-		"reqs": []
+		"reqs": [ "peace" ]
 	},
 	"perseverance": {
 		"mana": 18,

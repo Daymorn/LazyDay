@@ -11,7 +11,7 @@ class character():
         super().__init__()
         self.char = _charid
         self.status = {}
-        self.party = []
+        self.party = {}
         self.tstamp = {}
         self.buffsActive = {}
         self.dicts = {}
@@ -45,6 +45,7 @@ class character():
             'int': GetInt(self.char),
             'hp': GetHP(self.char),
             'hp_max': GetMaxHP(self.char),
+            'hp_per': abs(GetHP(self.char) / GetMaxHP(self.char)),
             'mana': GetMana(self.char),
             'mana_max': GetMaxMana(self.char),
             'stam': GetStam(self.char),
@@ -71,10 +72,16 @@ class character():
             if self.status['inparty']:
                 for _m in PartyMembersList():
                     if _m != Self():
-                        self.party.append(character(_m))
+                        self.party[_m] = character(_m)
+                # I might need to just recreate the party list every time so their class object reinit
+                #for _m in PartyMembersList():
+                #    if _m != Self() and _m not in self.party:
+                #        self.party[_m] = character(_m)
                 
 
     def checkBuffs(self, _template):
+        self.setStats()
+
         if self.char != Self():
             return
             
@@ -103,6 +110,8 @@ class character():
                 WaitForClientTargetResponse(5000);
             
     def bandageSelf(self):
+        self.setStats()
+
         if self.isHealing():
             return
             
@@ -121,6 +130,8 @@ class character():
                 WaitTargetSelf()  
 
     def bandageOther(self, _other):
+        self.setStats()
+
         #_other is expected as class 'character'    
         if self.isHealing():
             return
@@ -144,3 +155,39 @@ class character():
                 AddToSystemJournal('Bandaging other...')
                 UseObject(_bandages[0])
                 WaitTargetObject(_other.char) 
+
+    def bandageParty(self):
+        self.setStats()
+
+        if self.isHealing():
+            return
+
+        # sort party members by hit points. lowest -> greatest
+        # requires python 3.6+
+        _party = {k: v for k, v in sorted(self.party.items(), key=lambda item: item[1].status['hp'])}
+            
+        # check distance between self and each party member
+        for _m in _party:
+            _x = abs(self.status['x'] - _party[_m].status['x'])
+            _y = abs(self.status['y'] - _party[_m].status['y'])
+            # skip player if not within 1 tile
+            if _x > 1 or _y > 1:
+                continue  
+
+            # Bandage 
+            BandageTypes = [0x0E21] 
+            if _party[_m].status['damaged'] or\
+              _party[_m].status['poisoned'] or\
+              _party[_m].status['mortal_strike'] and\
+              _party[_m].status['dead'] == False:
+                _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
+                if len(_bandages) == 0:
+                    AddToSystemJournal('Out of bandages...') 
+                    return
+                else:
+                    AddToSystemJournal('Bandaging other...')
+                    UseObject(_bandages[0])
+                    WaitTargetObject(_party[_m].char) 
+                    return
+
+

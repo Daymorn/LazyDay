@@ -131,6 +131,7 @@ class character():
 
     def bandageOther(self, _other):
         self.setStats()
+        _other.setStats()
 
         #_other is expected as class 'character'    
         if self.isHealing():

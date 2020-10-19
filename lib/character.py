@@ -37,6 +37,13 @@ class character():
         else:
             return False
 
+    def setHPPercent(self):
+        if GetHP(self.char) > 0 and\
+          GetMaxHP(self.char) > 0:
+            return abs(GetHP(self.char) / GetMaxHP(self.char))
+        else:
+            return 0
+
     def setStats(self):
         self.status = {
             'name': GetName(self.char),
@@ -45,7 +52,7 @@ class character():
             'int': GetInt(self.char),
             'hp': GetHP(self.char),
             'hp_max': GetMaxHP(self.char),
-            'hp_per': abs(GetHP(self.char) / GetMaxHP(self.char)),
+            'hp_per': self.setHPPercent(),
             'mana': GetMana(self.char),
             'mana_max': GetMaxMana(self.char),
             'stam': GetStam(self.char),
@@ -126,7 +133,6 @@ class character():
                 UseObject(_bandages[0])
                 WaitTargetObject(_target.char) 
                 return
-
 
     def bandageSelf(self):
         self.setStats()

@@ -110,26 +110,31 @@ class character():
 
                 CastToObject(_i, Self())
                 WaitForClientTargetResponse(5000);
-            
+
+    def applyBandage(self, _target):
+        BandageTypes = [0x0E21] 
+        if _target.status['damaged'] or\
+          _target.status['poisoned'] or\
+          _target.status['mortal_strike'] and\
+          _target.status['dead'] == False:
+            _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
+            if len(_bandages) == 0:
+                AddToSystemJournal('Out of bandages...') 
+                return
+            else:
+                AddToSystemJournal('Bandaging other...')
+                UseObject(_bandages[0])
+                WaitTargetObject(_target.char) 
+                return
+
+
     def bandageSelf(self):
         self.setStats()
 
         if self.isHealing():
             return
             
-        BandageTypes = [0x0E21] 
-        if self.status['damaged'] or\
-          self.status['poisoned'] or\
-          self.status['mortal_strike'] and\
-          self.status['dead'] == False:
-            _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
-            if len(_bandages) == 0:
-                AddToSystemJournal('Out of bandages...') 
-                return
-            else:
-                AddToSystemJournal('Bandaging self...')
-                UseObject(_bandages[0])
-                WaitTargetSelf()  
+        self.applyBandage(self)
 
     def bandageOther(self, _other):
         if not IsObjectExists(_other.char):
@@ -148,19 +153,7 @@ class character():
             #AddToSystemJournal('You are too far away to heal target...')
             return  
             
-        BandageTypes = [0x0E21] 
-        if _other.status['damaged'] or\
-          _other.status['poisoned'] or\
-          _other.status['mortal_strike'] and\
-          _other.status['dead'] == False:
-            _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
-            if len(_bandages) == 0:
-                AddToSystemJournal('Out of bandages...') 
-                return
-            else:
-                AddToSystemJournal('Bandaging other...')
-                UseObject(_bandages[0])
-                WaitTargetObject(_other.char) 
+        self.applyBandage(_other)
 
     def bandageParty(self):
         self.setStats()
@@ -183,20 +176,4 @@ class character():
             if _x > 1 or _y > 1:
                 continue  
 
-            # Bandage 
-            BandageTypes = [0x0E21] 
-            if _party[_m].status['damaged'] or\
-              _party[_m].status['poisoned'] or\
-              _party[_m].status['mortal_strike'] and\
-              _party[_m].status['dead'] == False:
-                _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
-                if len(_bandages) == 0:
-                    AddToSystemJournal('Out of bandages...') 
-                    return
-                else:
-                    AddToSystemJournal('Bandaging other...')
-                    UseObject(_bandages[0])
-                    WaitTargetObject(_party[_m].char) 
-                    return
-
-
+            self.applyBandage(_party[_m])

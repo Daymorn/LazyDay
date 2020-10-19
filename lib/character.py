@@ -37,12 +37,43 @@ class character():
         else:
             return False
 
-    def setHPPercent(self):
+    def __setHPPercent(self):
         if GetHP(self.char) > 0 and\
           GetMaxHP(self.char) > 0:
             return abs(GetHP(self.char) / GetMaxHP(self.char))
         else:
             return 0
+
+    def __reqCheck(self, _condition):
+        print('sdfasdfasdf')
+        if _condition == 'rhand':
+            if not ObjAtLayer(RhandLayer()):
+                print(_condition)
+                return False
+
+        if _condition == 'war':
+            if not self.status['war']:
+                print(_condition)
+                return False
+
+        if _condition == 'peace':
+            if self.status['war']:
+                print(_condition)
+                return False
+        
+        return True
+
+    def __lmcCheck(self, _spell):
+        _cost = self.dicts['spells'][_spell]['mana']
+        _lmc = self.status['Lower_Mana_Cost']
+        if _lmc > 0:
+            _adjCost = _cost - (_cost * (_lmc/100))
+            if math.ceil(_adjCost) > self.status['mana']:
+                return False
+
+        return True
+
+
 
     def setStats(self):
         self.status = {
@@ -52,7 +83,7 @@ class character():
             'int': GetInt(self.char),
             'hp': GetHP(self.char),
             'hp_max': GetMaxHP(self.char),
-            'hp_per': self.setHPPercent(),
+            'hp_per': self.__setHPPercent(),
             'mana': GetMana(self.char),
             'mana_max': GetMaxMana(self.char),
             'stam': GetStam(self.char),
@@ -95,28 +126,21 @@ class character():
         for _i in _buffsList:
             _active = [_buff['ClilocID1'] for _buff in self.buffsActive]
             if self.dicts['spells'][_i]['ClilocID1'] not in _active:
-                
-                if 'rhand' in self.dicts['spells'][_i]['reqs'] and\
-                  not ObjAtLayer(RhandLayer()):
-                    continue
+                _cast = True
 
-                if 'war' in self.dicts['spells'][_i]['reqs'] and\
-                  not self.status['war']:
-                    continue
+                # Check if each condition of this spell is met.
+                if len(self.dicts['spells'][_i]['reqs']) > 0:
+                    for _req in self.dicts['spells'][_i]['reqs']:
+                        if not self.__reqCheck(_req):
+                            _cast = False 
 
-                if 'peace' in self.dicts['spells'][_i]['reqs'] and\
-                  self.status['war']:
-                    continue
+                # Check if char has enough mana, after LMC adjustment
+                if not self.__lmcCheck(_i):
+                    _cast = False
 
-                _cost = self.dicts['spells'][_i]['mana']
-                _lmc = self.status['Lower_Mana_Cost']
-                if _lmc > 0:
-                    _adjCost = _cost - (_cost * (_lmc/100))
-                    if math.ceil(_adjCost) > self.status['mana']:
-                        continue
-
-                CastToObject(_i, Self())
-                WaitForClientTargetResponse(5000);
+                if _cast:
+                    CastToObject(_i, Self())
+                    WaitForClientTargetResponse(5000);
 
     def applyBandage(self, _target):
         BandageTypes = [0x0E21] 

@@ -4,6 +4,7 @@ from datetime import datetime
 import json
 import math
 from pathlib import Path
+import re
 
 class character():
 
@@ -12,6 +13,7 @@ class character():
         self.char = _charid
         self.status = {}
         self.party = {}
+        self.pets = {}
         self.tstamp = {}
         self.buffsActive = {}
         self.dicts = {}
@@ -32,7 +34,10 @@ class character():
             return False
             
     def isHealing(self):
-        if any(_b for _b in self.buffsActive if _b['ClilocID1'] == 1151311):
+        # checks if healing skill or veterinary 'buff' is active.
+        if any(_b for _b in self.buffsActive \
+          if _b['ClilocID1'] == 1151311\
+          or _b['ClilocID1'] == 1044099):
             return True
         else:
             return False
@@ -40,27 +45,69 @@ class character():
     def __setHPPercent(self):
         if GetHP(self.char) > 0 and\
           GetMaxHP(self.char) > 0:
-            return abs(GetHP(self.char) / GetMaxHP(self.char))
+            return round(GetHP(self.char) / GetMaxHP(self.char), 2)
         else:
             return 0
 
-    def __reqCheck(self, _condition):
-        print('sdfasdfasdf')
+    def __reqCheck(self, _condition, _target=False):
         if _condition == 'rhand':
             if not ObjAtLayer(RhandLayer()):
-                print(_condition)
                 return False
 
         if _condition == 'war':
             if not self.status['war']:
-                print(_condition)
                 return False
 
         if _condition == 'peace':
             if self.status['war']:
-                print(_condition)
                 return False
         
+        if _condition == 'undamaged':
+            if self.status['damaged']:
+                return False
+
+        # self less than % hp check
+        _r = re.search(r'(?<=self_under)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.status['hp_per'] < _per:
+                return False
+        
+        # self more than % hp check
+        _r = re.search(r'(?<=self_over)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.status['hp_per'] > _per:
+                return False
+
+        # pet less than % hp check
+        _r = re.search(r'(?<=pet_under)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.pets[_target].status['hp_per'] < _per:
+                return False
+ 
+        # pet more than % hp check
+        _r = re.search(r'(?<=pet_over)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.pets[_target].status['hp_per'] > _per:
+                return False
+ 
+        # party less than % hp check
+        _r = re.search(r'(?<=party_under)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.party[_target].status['hp_per'] < _per:
+                return False
+ 
+        # party more than % hp check
+        _r = re.search(r'(?<=party_over)[0-9]+(?=\%hp)', _condition)
+        if _r:
+            _per = float(_r.group(0)) / 100
+            if not self.party[_target].status['hp_per'] > _per:
+                return False
+       
         return True
 
     def __lmcCheck(self, _spell):
@@ -72,8 +119,6 @@ class character():
                 return False
 
         return True
-
-
 
     def setStats(self):
         self.status = {
@@ -105,12 +150,26 @@ class character():
             _ext = GetExtInfo()
             self.status = {**self.status, **_ext} 
             self.dicts = self.__getJSON('dicts.json')
-            self.status['pets'] = PetsCurrent()
+            self.status['pet_count'] = PetsCurrent()
             self.status['inparty'] = InParty()
+
+            if self.status['pet_count'] > 0:
+                # always start with no pets
+                # only add pet if it exists locally
+                self.pets = {}
+                
+                Ignore(Self())
+                FindNotoriety(-1,2)
+                _guilded = GetFoundList()
+                for _g in _guilded:
+                    if GetType(_g) not in self.dicts['player_types']:
+                        self.pets[_g] = character(_g)
+
             if self.status['inparty']:
                 # always start with no members
                 # only add member if it exists locally
                 self.party = {}
+
                 for _m in PartyMembersList():
                     if _m != Self() and IsObjectExists(_m):
                         self.party[_m] = character(_m)
@@ -166,25 +225,6 @@ class character():
             
         self.applyBandage(self)
 
-    def bandageOther(self, _other):
-        if not IsObjectExists(_other.char):
-            return
-
-        self.setStats()
-        _other.setStats()
-
-        #_other is expected as class 'character'    
-        if self.isHealing():
-            return
-            
-        _x = abs(self.status['x'] - _other.status['x'])
-        _y = abs(self.status['y'] - _other.status['y'])
-        if _x > 1 or _y > 1:
-            #AddToSystemJournal('You are too far away to heal target...')
-            return  
-            
-        self.applyBandage(_other)
-
     def bandageParty(self):
         self.setStats()
 
@@ -206,4 +246,39 @@ class character():
             if _x > 1 or _y > 1:
                 continue  
 
-            self.applyBandage(_party[_m])
+            _bandage = True 
+            for _req in self.dicts['actions']['bandage party']['reqs']:
+                if not self.__reqCheck(_req, _m):
+                    _bandage = False 
+
+            if _bandage:
+                self.applyBandage(_party[_m])
+
+    def bandagePets(self):
+        self.setStats()
+
+        if len(self.pets) == 0:
+            return
+
+        if self.isHealing():
+            return
+
+        # sort pets by hit points. lowest -> greatest
+        # requires python 3.6+
+        _pets = {k: v for k, v in sorted(self.pets.items(), key=lambda item: item[1].status['hp'])}
+            
+        # check distance between self and each party member
+        for _p in _pets:
+            _x = abs(self.status['x'] - _pets[_p].status['x'])
+            _y = abs(self.status['y'] - _pets[_p].status['y'])
+            # skip pet if not within 1 tile
+            if _x > 1 or _y > 1:
+                continue  
+
+            _bandage = True 
+            for _req in self.dicts['actions']['bandage pet']['reqs']:
+                if not self.__reqCheck(_req, _p):
+                    _bandage = False 
+
+            if _bandage:
+                self.applyBandage(_pets[_p])

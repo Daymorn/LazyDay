@@ -14,14 +14,10 @@ if __name__ == '__main__':
         # Check if you need to bandage a party member. 
         # Optional
         #char.bandageParty()
-        
-        # Uncomment if you want to bandage a specific party member or pet
-        # Must replace <player objectid> with the proper id via stealth
-        # You can find this under the 'World' tab in stealth
+        # Check if you need to bandage a pet. 
         # Optional
-        #other = character(<player objectid>) # 0x********
-        #char.bandageOther(other)
-        
+        #char.bandagePets()        
+ 
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
         # Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
@@ -29,11 +25,7 @@ if __name__ == '__main__':
         # Optional
         char.checkBuffs('Death Knight')
         
-        # Unique to the 'Treasures of the Undead Lords' event
-        # Will check for 'the three' loot and auto insure them
-        # Optional 
-        InsureTheThree()
-        
         # Millisecond interval between each cycle
         # 1000ms works well for me
+        # 500ms is very responsive
         Wait(1000) 

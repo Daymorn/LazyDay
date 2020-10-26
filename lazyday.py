@@ -15,6 +15,8 @@ if __name__ == '__main__':
         # Optional
         #char.bandageParty()
         # Check if you need to bandage a pet. 
+	# Pet must be guilded/green.
+	# Will bandage guildmates pets as well, most damaged first.
         # Optional
         #char.bandagePets()        
  

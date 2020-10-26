@@ -33,14 +33,12 @@ if __name__ == '__main__':
         # It attempts to heal the most damaged player first, if within 1 tile.
         # Optional
         #char.bandageParty()
-        
-        # Uncomment if you want to bandage a specific party member or pet
-        # Must replace <player objectid> with the proper id via stealth
-        # You can find this under the 'World' tab in stealth
+        # Check if you need to bandage a pet.
+	# Pet must be guilded/green.
+	# Will bandage guildmates pets as well, most damaged first.
         # Optional
-        #other = character(<player objectid>) # 0x********
-        #char.bandageOther(other)
-        
+        #char.bandagePets()        
+       
         # Check if need to cast desired buffs
         # Defined in json\dicts.json -> templates.<name>
         # Currently supports: 'Death Knight', 'Paladin', 'Mage', 'Skald'
@@ -48,12 +46,32 @@ if __name__ == '__main__':
         # Optional
         char.checkBuffs('Death Knight')
         
-        # Unique to the 'Treasures of the Undead Lords' event
-        # Will check for 'the three' loot and auto insure them
-        # Optional 
-        InsureTheThree()
-        
         # Millisecond interval between each cycle
         # 1000ms works well for me
+        # 500ms is very responsive
         Wait(1000) 
+```
+# json/dicts.json
+'reqs' currently supports:
+'war' 
+'peace' 
+'rhand' 
+'self_<over|under><1-99>%hp' 
+'pet_<over|under><1-99>%hp'
+'party_<over|under><1-99>%hp'
+```
+"actions": {
+	"bandage pet": {
+		"reqs": [ "peace", "pet_under90%hp" ]
+	},
+	"bandage party": {
+		"reqs": [ "party_under98%hp" ]
+	}
+},
+...
+	"curse weapon": {
+		"mana": 7,
+		...
+		"reqs": [ "war", "rhand", "self_over50%hp" ]
+	}
 ```

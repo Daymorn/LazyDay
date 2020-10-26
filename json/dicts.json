@@ -16,58 +16,72 @@
 		"buffs": [ "protection", "invigorate" ]
 	},
 	"PeaceBard Tamer": {
-		"buffs": [ "protection", "resilience", "perseverance" ]
+		"buffs": [ "protection", "resilience", "perseverance" ],
+		"items": [ "orange petal" ]
 	}
 },
+"actions": {
+	"bandage pet": {
+		"reqs": [ "peace", "pet_under90%hp" ]
+	},
+	"bandage party": {
+		"reqs": [ "party_under98%hp" ]
+	}
+},
+"player_types": [
+		183, 184, 185, 186, 400, 401, 402,
+		403, 605, 606, 607, 608, 666,
+		667, 694, 695, 750, 751, 970
+],
 "spells": {
 	"bless": {
 		"mana": 9,
 		"Attribute_ID": 1048,
 		"ClilocID1": 1075847,
 		"ClilocID2": 1075848,
-		"reqs": []
+		"reqs": [ "undamaged" ]
 	},
 	"enemy of one": {
 		"mana": 20,
 		"Attribute_ID": 1011,
 		"ClilocID1": 1075653,
 		"ClilocID2": 1075902,
-		"reqs": [ "war" ]
+		"reqs": [ "war", "rhand", "self_over50%hp" ]
 	},
 	"protection": {
 		"mana": 6,
 		"Attribute_ID": 1029,
 		"ClilocID1": 1075814,
 		"ClilocID2": 1075815,
-		"reqs": []
+		"reqs": [ "undamaged" ]
 	},
 	"inspire": {
 		"mana": 16,
 		"Attribute_ID": 1055,
 		"ClilocID1": 1115612,
 		"ClilocID2": 1151951,
-		"reqs": [ "peace" ]
+		"reqs": [ "peace", "undamaged" ]
 	},
 	"invigorate": {
 		"mana": 22,
 		"Attribute_ID": 1056,
 		"ClilocID1": 1115613,
 		"ClilocID2": 1115730,
-		"reqs": [ "peace" ]
+		"reqs": [ "peace", "undamaged" ]
 	},
 	"perseverance": {
 		"mana": 18,
 		"Attribute_ID": 1058,
 		"ClilocID1": 1115615,
 		"ClilocID2": 1115732,
-		"reqs": []
+		"reqs": [ "peace", "undamaged" ]
 	},
 	"resilience": {
 		"mana": 16,
 		"Attribute_ID": 1057,
 		"ClilocID1": 1115614,
 		"ClilocID2": 1115731,
-		"reqs": []
+		"reqs": [ "peace", "undamaged" ]
 	},
 	"despair": {
 		"mana": 26,
@@ -88,28 +102,28 @@
 		"Attribute_ID": 1048,
 		"ClilocID1": 1075845,
 		"ClilocID2": 1075846,
-		"reqs": []
+		"reqs": [ "undamaged" ]
 	},
 	"consecrate weapon": {
 		"mana": 10,
 		"Attribute_ID": 1082,
 		"ClilocID1": 1151385,
 		"ClilocID2": 1151386,
-		"reqs": [ "war", "rhand" ]
+		"reqs": [ "war", "rhand", "self_over50%hp" ]
 	},
 	"divine fury": {
 		"mana": 15,
 		"Attribute_ID": 1010,
 		"ClilocID1": 1060497,
 		"ClilocID2": 1060497,
-		"reqs": [ "war", "rhand" ]
+		"reqs": [ "war", "rhand", "self_over50%hp" ]
 	},
 	"curse weapon": {
 		"mana": 7,
 		"Attribute_ID": 1088,
 		"ClilocID1": 1060512,
 		"ClilocID2": 1153780,
-		"reqs": [ "war", "rhand" ]
+		"reqs": [ "war", "rhand", "self_over50%hp" ]
 	}
 }
 }

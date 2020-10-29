@@ -1,11 +1,8 @@
 from py_stealth import *
-from lib.character import character
-from lib.unisharp import *
-from lib.functions import *
-from datetime import datetime
+from lib.character import Character
 
 if __name__ == '__main__':
-    char = character(Self())
+    char = Character(Self())
     
     while True:       
         # Check if you need to bandage yourself. 

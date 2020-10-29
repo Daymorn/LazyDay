@@ -1,12 +1,11 @@
 from py_stealth import *
-from lib.unisharp import *
 from datetime import datetime
 import json
 import math
 from pathlib import Path
 import re
 
-class character():
+class Character():
 
     def __init__(self, _charid):
         super().__init__()
@@ -41,6 +40,27 @@ class character():
             return True
         else:
             return False
+
+    def __NewFind(self, _types, _colors, _container, _subs):
+        _foundlist = []
+        while True:
+            try:
+                Wait(250)
+                if FindTypesArrayEx(_types, _colors, _container, _subs):
+                    _foundList = GetFindedList()
+                    _distanceList = []
+                    if len(_foundlist) > 1:
+                        for _found in _foundList:
+                            _distanceList.append(GetDistance(_found))
+                        _orderedList = [_foundList[_i] for _i in _distanceList]
+                        return _orderedList
+                    else:
+                        return _foundList
+                else:
+                    return []
+            except Exception:
+                AddToSystemJournal("Exception caught during find.")
+                Wait(250)
 
     def __setHPPercent(self):
         if GetHP(self.char) > 0 and\
@@ -207,7 +227,12 @@ class character():
           _target.status['poisoned'] or\
           _target.status['mortal_strike'] and\
           _target.status['dead'] == False:
-            _bandages = NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
+              
+            print(BandageTypes)
+            print([0xFFFF])
+            print([Backpack()])
+            print(True)
+            _bandages = self.__NewFind(BandageTypes, [0xFFFF], [Backpack()], True)
             if len(_bandages) == 0:
                 AddToSystemJournal('Out of bandages...') 
                 return

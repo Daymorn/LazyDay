@@ -23,7 +23,7 @@ Download or clone LazyDay into your StealthClient scripts folder.
 # lazyday.py
 ```
 if __name__ == '__main__':
-    char = character(Self())
+    char = Character(Self())
     
     while True:       
         # Check if you need to bandage yourself. 

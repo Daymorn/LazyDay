@@ -183,7 +183,7 @@ class Character():
                 _guilded = GetFoundList()
                 for _g in _guilded:
                     if GetType(_g) not in self.dicts['player_types']:
-                        self.pets[_g] = character(_g)
+                        self.pets[_g] = Character(_g)
 
             if self.status['inparty']:
                 # always start with no members
@@ -192,7 +192,7 @@ class Character():
 
                 for _m in PartyMembersList():
                     if _m != Self() and IsObjectExists(_m):
-                        self.party[_m] = character(_m)
+                        self.party[_m] = Character(_m)
 
     def checkBuffs(self, _template):
         self.setStats()
